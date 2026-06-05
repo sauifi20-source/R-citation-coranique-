@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quran Video Creator</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Scheherazade+New:wght@400;500;700&family=Amiri:wght@400;700&family=Noto+Naskh+Arabic:wght@400;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="header">
+    <div class="header-inner">
+      <div class="logo">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+          <rect width="28" height="28" rx="8" fill="#1a1a2e"/>
+          <path d="M14 6C14 6 8 9 8 14C8 17.3 10.7 20 14 20C17.3 20 20 17.3 20 14C20 9 14 6Z" fill="#c9a84c" opacity="0.9"/>
+          <circle cx="14" cy="14" r="2.5" fill="#1a1a2e"/>
+        </svg>
+        <span class="logo-text">Quran Video Creator</span>
+      </div>
+      <div class="header-steps" id="headerSteps"></div>
+    </div>
+  </header>
+
+  <main class="app">
+
+    <div class="top-row">
+      <div class="panel" id="panelSurahs">
+        <div class="panel-title">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+          Sourates
+        </div>
+        <input class="search-box" id="surSearch" placeholder="Rechercher une sourate…" type="text" autocomplete="off">
+        <div class="list-wrap" id="surList" role="listbox" aria-label="Liste des sourates"></div>
+      </div>
+
+      <div class="panel" id="panelReciters">
+        <div class="panel-title">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="8" y1="22" x2="16" y2="22"/></svg>
+          Récitateurs
+        </div>
+        <input class="search-box" id="recSearch" placeholder="Rechercher un récitateur…" type="text" autocomplete="off">
+        <div class="list-wrap" id="recList" role="listbox" aria-label="Liste des récitateurs"></div>
+      </div>
+    </div>
+
+    <div class="top-row">
+      <div class="panel" id="panelAudio">
+        <div class="panel-title">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+          Import audio
+        </div>
+        <div class="import-zone" id="audioZone" role="button" tabindex="0" aria-label="Importer un fichier audio">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+          <span class="import-label">Cliquer ou déposer l'audio</span>
+          <span class="import-formats">MP3 · WAV · M4A · FLAC · OGG</span>
+        </div>
+        <input type="file" id="audioFile" accept=".mp3,.wav,.m4a,.flac,.ogg,audio/*" aria-label="Sélectionner un fichier audio">
+        <div id="audioPlayer"></div>
+      </div>
+
+      <div class="panel" id="panelVideo">
+        <div class="panel-title">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+          Import vidéo de fond
+        </div>
+        <div class="import-zone" id="videoZone" role="button" tabindex="0" aria-label="Importer une vidéo de fond">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="2" y1="7" x2="7" y2="7"/><line x1="2" y1="17" x2="7" y2="17"/><line x1="17" y1="17" x2="22" y2="17"/><line x1="17" y1="7" x2="22" y2="7"/></svg>
+          <span class="import-label">Cliquer ou déposer la vidéo</span>
+          <span class="import-formats">MP4 · MOV · AVI · WEBM · MKV</span>
+        </div>
+        <input type="file" id="videoFile" accept=".mp4,.mov,.avi,.webm,.mkv,video/*" aria-label="Sélectionner une vidéo de fond">
+        <div id="videoPreviewWrap"></div>
+      </div>
+    </div>
+
+    <section class="section" id="verseSection" style="display:none" aria-label="Sélection des versets">
+      <div class="section-header">
+        <div class="section-title">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+          Versets — <span id="surateNameDisplay" class="muted-title"></span>
+        </div>
+        <div class="row">
+          <button class="btn btn-sm" onclick="selectAll()">Tout sélectionner</button>
+          <button class="btn btn-sm" onclick="deselectAll()">Tout désélectionner</button>
+          <span id="verseCount" class="count-badge"></span>
+        </div>
+      </div>
+      <div class="verse-grid" id="verseGrid" role="group" aria-label="Versets"></div>
+    </section>
+
+    <section class="section" aria-label="Synchronisation">
+      <div class="section-header">
+        <div class="section-title">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
+          Synchronisation
+        </div>
+        <div id="syncStatus" class="sync-status"></div>
+      </div>
+      <div class="sync-row">
+        <button class="btn btn-primary btn-sync" id="syncBtn" onclick="syncAuto()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2l3 7h7l-5.5 4 2 7L12 16l-6.5 4 2-7L2 9h7z"/></svg>
+          Synchroniser automatiquement
+        </button>
+        <span class="sync-hint">Analyse l'audio · détecte les versets · génère la timeline</span>
+      </div>
+      <div id="timelineWrap" style="display:none">
+        <div class="timeline-label">Timeline — cliquer sur un bloc pour ajuster le timing</div>
+        <div class="timeline-track" id="timelineTrack" role="region" aria-label="Timeline des versets"></div>
+      </div>
+    </section>
+
+    <section class="section" aria-label="Police arabe">
+      <div class="section-header">
+        <div class="section-title">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
+          Police arabe
+        </div>
+      </div>
+      <div class="font-grid" id="fontGrid" role="radiogroup" aria-label="Choix de la police">
+        <button class="font-chip active" data-font="Scheherazade New" onclick="setFont(this)" role="radio" aria-checked="true" style="font-family:'Scheherazade New',serif">بِسْمِ اللَّهِ</button>
+        <button class="font-chip" data-font="Amiri" onclick="setFont(this)" role="radio" aria-checked="false" style="font-family:'Amiri',serif">بِسْمِ اللَّهِ</button>
+        <button class="font-chip" data-font="Noto Naskh Arabic" onclick="setFont(this)" role="radio" aria-checked="false" style="font-family:'Noto Naskh Arabic',serif">بِسْمِ اللَّهِ</button>
+      </div>
+      <div class="font-preview" id="fontPreviewBox">
+        <span id="fontPreview" style="font-family:'Scheherazade New',serif">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</span>
+      </div>
+    </section>
+
+    <section class="section" aria-label="Format vidéo">
+      <div class="section-header">
+        <div class="section-title">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          Format vidéo
+        </div>
+      </div>
+      <div class="format-grid" role="radiogroup" aria-label="Format de la vidéo">
+        <button class="format-card active" data-ratio="9:16" onclick="setFormat(this,'9:16')" role="radio" aria-checked="true">
+          <div class="format-icon"><div class="format-rect" style="width:18px;height:30px"></div></div>
+          <div class="format-name">TikTok</div><div class="format-ratio">9:16</div>
+        </button>
+        <button class="format-card" data-ratio="9:16" onclick="setFormat(this,'9:16')" role="radio" aria-checked="false">
+          <div class="format-icon"><div class="format-rect" style="width:18px;height:30px"></div></div>
+          <div class="format-name">Insta Reel</div><div class="format-ratio">9:16</div>
+        </button>
+        <button class="format-card" data-ratio="9:16" onclick="setFormat(this,'9:16')" role="radio" aria-checked="false">
+          <div class="format-icon"><div class="format-rect" style="width:18px;height:30px"></div></div>
+          <div class="format-name">YT Shorts</div><div class="format-ratio">9:16</div>
+        </button>
+        <button class="format-card" data-ratio="16:9" onclick="setFormat(this,'16:9')" role="radio" aria-checked="false">
+          <div class="format-icon"><div class="format-rect" style="width:32px;height:18px"></div></div>
+          <div class="format-name">YouTube</div><div class="format-ratio">16:9</div>
+        </button>
+        <button class="format-card" data-ratio="1:1" onclick="setFormat(this,'1:1')" role="radio" aria-checked="false">
+          <div class="format-icon"><div class="format-rect" style="width:24px;height:24px"></div></div>
+          <div class="format-name">Insta Carré</div><div class="format-ratio">1:1</div>
+        </button>
+      </div>
+    </section>
+
+    <section class="section" aria-label="Aperçu vidéo">
+      <div class="section-header">
+        <div class="section-title">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+          Aperçu
+        </div>
+        <button class="btn btn-primary" id="playBtn" onclick="togglePreview()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          Lecture
+        </button>
+      </div>
+      <div class="preview-center">
+        <div class="preview-area" id="previewArea" style="aspect-ratio:9/16;max-height:340px;max-width:192px">
+          <div class="preview-placeholder" id="previewPlaceholder">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.5" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12" y2="18"/></svg>
+            <span>Importer audio + vidéo</span>
+          </div>
+          <video id="previewVideo" style="display:none;width:100%;height:100%;object-fit:cover;position:absolute;top:0;left:0" loop muted playsinline></video>
+          <div class="preview-overlay" id="previewOverlay" style="display:none">
+            <div class="preview-verse" id="previewVerse"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-label="Export">
+      <div class="section-header">
+        <div class="section-title">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Export MP4
+        </div>
+      </div>
+      <div class="export-grid" role="radiogroup" aria-label="Qualité d'export">
+        <button class="quality-card" onclick="setQuality(this,'720p')" role="radio" aria-checked="false"><div class="quality-name">HD</div><div class="quality-res">720p</div></button>
+        <button class="quality-card active" onclick="setQuality(this,'1080p')" role="radio" aria-checked="true"><div class="quality-name">Full HD</div><div class="quality-res">1080p</div></button>
+        <button class="quality-card" onclick="setQuality(this,'1440p')" role="radio" aria-checked="false"><div class="quality-name">2K</div><div class="quality-res">1440p</div></button>
+        <button class="quality-card" onclick="setQuality(this,'4K')" role="radio" aria-checked="false"><div class="quality-name">4K</div><div class="quality-res">Ultra HD</div></button>
+      </div>
+      <button class="btn btn-export" id="exportBtn" onclick="exportVideo()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Exporter la vidéo — 1080p
+      </button>
+    </section>
+
+  </main>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
